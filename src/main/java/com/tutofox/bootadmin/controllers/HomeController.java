@@ -7,10 +7,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-	@RequestMapping(value= {"/home"}, method=RequestMethod.GET)
-	 public ModelAndView home() {
-		  ModelAndView model = new ModelAndView();  
-		  model.setViewName("Home");
-		  return model;
-	 }	 
+	@RequestMapping(value= {"/"}, method=RequestMethod.GET)
+	public ModelAndView home() {
+		ModelAndView model = new ModelAndView();  
+		model.setViewName("Home");
+		return model;
+	}
+	
+	@RequestMapping(value= {"/user"}, method=RequestMethod.GET)
+	public ModelAndView user() {
+		ModelAndView model = new ModelAndView();  
+		model.setViewName("User");
+		return model;
+	}
 }
