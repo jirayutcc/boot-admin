@@ -32835,97 +32835,10 @@ var Edit = /*#__PURE__*/function (_Component) {
 /*!*********************************************!*\
   !*** ./src/main/js/components/user/Form.js ***!
   \*********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Form; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-var Form = /*#__PURE__*/function (_Component) {
-  _inherits(Form, _Component);
-
-  var _super = _createSuper(Form);
-
-  function Form() {
-    _classCallCheck(this, Form);
-
-    return _super.apply(this, arguments);
-  }
-
-  _createClass(Form, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col-md-6 mb-3"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "username"
-      }, "Username"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        "class": "form-control",
-        placeholder: "Username"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col-md-6 mb-3"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "password"
-      }, "Password"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        "class": "form-control",
-        placeholder: "Password"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col-md-6 mb-3"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        "for": "email"
-      }, "Email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "email",
-        "class": "form-control",
-        placeholder: "you@example.com"
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "row"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        "class": "col-md-6 mb-3"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        "class": "btn btn-primary btn-block",
-        type: "submit"
-      }, "Save"))));
-    }
-  }]);
-
-  return Form;
-}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: E:\\Dev\\boot-admin\\src\\main\\js\\components\\user\\Form.js: Can not use keyword 'await' outside an async function (78:16)\n\n  76 | \n  77 |   onSave() {\n> 78 |     const res = await userServices.create(this.state)\n     |                 ^\n  79 | \n  80 |     if (res.success) {\n  81 |       alert(res.message)\n    at Object._raise (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:764:17)\n    at Object.raiseWithData (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:757:17)\n    at Object.raise (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:751:17)\n    at Object.checkReservedWord (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11064:14)\n    at Object.parseIdentifierName (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11026:12)\n    at Object.parseIdentifier (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:10997:23)\n    at Object.parseExprAtom (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:10060:27)\n    at Object.parseExprAtom (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:4686:20)\n    at Object.parseExprSubscripts (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9789:23)\n    at Object.parseUpdate (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9769:21)\n    at Object.parseMaybeUnary (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9758:17)\n    at Object.parseExprOps (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9628:23)\n    at Object.parseMaybeConditional (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9602:23)\n    at Object.parseMaybeAssign (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:9565:21)\n    at Object.parseVar (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11997:26)\n    at Object.parseVarStatement (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11806:10)\n    at Object.parseStatementContent (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11398:21)\n    at Object.parseStatement (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11331:17)\n    at Object.parseBlockOrModuleBlockBody (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11913:25)\n    at Object.parseBlockBody (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11899:10)\n    at Object.parseBlock (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11883:10)\n    at Object.parseFunctionBody (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:10901:24)\n    at Object.parseFunctionBodyAndFinish (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:10884:10)\n    at Object.parseMethod (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:10827:10)\n    at Object.pushClassMethod (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:12334:30)\n    at Object.parseClassMemberWithIsStatic (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:12251:12)\n    at Object.parseClassMember (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:12193:10)\n    at withTopicForbiddingContext (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:12141:14)\n    at Object.withTopicForbiddingContext (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:11206:14)\n    at Object.parseClassBody (E:\\Dev\\boot-admin\\node_modules\\@babel\\parser\\lib\\index.js:12118:10)");
 
 /***/ }),
 
@@ -33036,6 +32949,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Nav */ "./src/main/js/components/user/Nav.js");
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Form */ "./src/main/js/components/user/Form.js");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Form__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _List__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./List */ "./src/main/js/components/user/List.js");
 /* harmony import */ var _Edit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Edit */ "./src/main/js/components/user/Edit.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
@@ -33089,7 +33003,7 @@ var Main = /*#__PURE__*/function (_Component) {
         component: _List__WEBPACK_IMPORTED_MODULE_4__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
         path: "/form",
-        component: _Form__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _Form__WEBPACK_IMPORTED_MODULE_3___default.a
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
         path: "/edit/:id",
         component: _Edit__WEBPACK_IMPORTED_MODULE_5__["default"]
