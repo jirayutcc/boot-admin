@@ -33,7 +33,7 @@ public class UserController {
 		try {
 			userRepository.save(data);
 			return new ResponseEntity<>("save [User] successful " , HttpStatus.OK);
-		} 
+		}
 		catch (Exception e) {
 			return new ResponseEntity<>("error : " + e , HttpStatus.INTERNAL_SERVER_ERROR);
 		}
