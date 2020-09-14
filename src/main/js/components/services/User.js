@@ -26,4 +26,17 @@ user.create = async (state) => {
   return res;
 };
 
+user.get = async (id) => {
+  const urlGet = baseUrl + "/get/" + id;
+  const res = await axios
+    .get(urlGet)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+  return res;
+};
+
 export default user;
