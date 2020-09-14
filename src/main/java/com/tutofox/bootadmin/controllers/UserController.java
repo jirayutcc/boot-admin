@@ -1,13 +1,17 @@
 package com.tutofox.bootadmin.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +30,7 @@ public class UserController {
 	public List<User> test() {
 		return userRepository.findAll();
 	}
-	
+
 	@PostMapping(value="/create")
 	public ResponseEntity<String> create(@RequestBody User data){
 		
@@ -37,7 +41,35 @@ public class UserController {
 		catch (Exception e) {
 			return new ResponseEntity<>("error : " + e , HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
  	}
+	
+	@GetMapping(value = "get/{id}" )
+	public Map<String, Object> data(@PathVariable("id") Integer id){
+		
+		HashMap<String,Object> response = new HashMap<String,Object>();
+		
+		try {   
+			
+			Optional<User> user = userRepository.findById(id);  
+		 
+			if (user.isPresent()) { 
+				response.put("message", "Successful load");
+				response.put("data", user);
+				response.put("success", true);
+				return response;
+			}
+			else {
+				response.put("message", "Not found data");
+				response.put("data", null);
+				response.put("success", false);
+				return response;
+			}
+			
+		} catch (Exception e){ 
+			response.put("message", e.getMessage()); 
+			response.put("success", false);
+			return response;
+		}
+	}
 	
 }
