@@ -3,6 +3,19 @@ import axios from "axios";
 const baseUrl = "http://localhost:8090/api/user";
 const user = {};
 
+user.list = async () => {
+  const urlList = baseUrl + "/list";
+  const res = await axios
+    .get(urlList)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+  return res;
+};
+
 user.create = async (state) => {
   const data = {
     username: state.username,
