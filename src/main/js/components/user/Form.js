@@ -74,12 +74,11 @@ export default class Form extends Component {
     );
   }
 
-  onSave() {
+  async onSave() {
     const res = await userServices.create(this.state)
-
     if (res.success) {
       alert(res.message)
-      window.location.replace("/user/index")
+      window.location.replace("/user")
     } else {
       alert("error : " + res.message.message)
     }
