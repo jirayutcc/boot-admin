@@ -31,6 +31,26 @@ public class UserController {
 		return userRepository.findAll();
 	}
 
+	@GetMapping(value="/list")
+	public Map<String, Object> list(){
+		
+		HashMap<String,Object> response = new HashMap<String,Object>();
+		
+		try { 
+			List<User> userList; 
+			userList = userRepository.findAll();
+			response.put("message", "Successful load");
+			response.put("list", userList);
+			response.put("success", true);
+			return response;
+			
+		} catch (Exception e) {  
+			response.put("message", e.getMessage()); 
+			response.put("success ", false);
+			return response;
+		}
+	}
+	
 	@PostMapping(value="/create")
 	public ResponseEntity<String> create(@RequestBody User data){
 		
