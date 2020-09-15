@@ -1,5 +1,28 @@
-import React, { Component } from 'react'; 
+import React, { Component } from "react";
+
+import userServices from "../services/User";
+
+import { Link } from "react-router-dom";
+
 export default class List extends Component {
+  constructor() {
+    super();
+    this.state = {
+      listUser: [],
+    };
+  }
+
+  async componentDidMount() {
+    console.log("Mounted list");
+    const res = await userServices.list();
+    console.log(res);
+    if (res.success) {
+      this.setState({ listUser: res.list });
+    } else {
+      alert("Error: " + res.message);
+    }
+  }
+
   render() {
     return (
       <section>
@@ -14,30 +37,30 @@ export default class List extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>John1</td>
-              <td>1234</td>
-              <td>john1@example.com</td>
-              <td>
-                <a href="#" class="btn btn-light">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>John2</td>
-              <td>1234</td>
-              <td>john2@example.com</td>
-              <td>
-                <a href="#" class="btn btn-light">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
-              </td>
-            </tr>
-
+            {this.state.listUser.map((data) => {
+              return (
+                <tr>
+                  <th scope="row">{data.id}</th>
+                  <td>{data.username}</td>
+                  <td>{data.password}</td>
+                  <td>{data.email}</td>
+                  <td>
+                    <Link
+                      class="btn btn-outline-info"
+                      to={"/user/edit/" + data.id}
+                    >
+                      Edit
+                    </Link>
+                    <a href="#" class="btn btn-danger">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </section>
-    )
+    );
   }
 }
