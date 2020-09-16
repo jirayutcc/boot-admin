@@ -90,4 +90,16 @@ export default class Edit extends Component {
       </div>
     );
   }
+
+  async onUpdate() {
+    const res = await userServices.update(this.state);
+    if (res.success) {
+      alert(res.message);
+      window.location.replace("/user")
+    } else {
+      console.log("Error");
+      console.log(res);
+      alert("Error: " + JSON.stringify(res.data));
+    }
+  }
 }
