@@ -92,4 +92,23 @@ public class UserController {
 		}
 	}
 	
+	@PutMapping(value="/update/{id}")  
+	public Map<String, Object> update(@PathVariable("id") Integer id,
+			@RequestBody User data ){
+		
+		HashMap<String,Object> response = new HashMap<String,Object>();
+		
+		try {  
+			data.setId(id);
+			userRepository.save(data);
+			response.put("message", "Successful update");
+			response.put("success", true);
+			return response;
+		} catch (Exception e) {
+			response.put("message", e.getMessage()); 
+			response.put("success", false);
+			return response;
+		}
+		
+	}
 }
