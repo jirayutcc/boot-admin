@@ -52,4 +52,25 @@ user.get = async (id) => {
   return res;
 };
 
+user.update = async (state) => {
+  const data = {
+    username: state.username,
+    password: state.password,
+    email: state.email,
+  };
+
+  const urlUpdate = baseUrl + "/update/" + state.id;
+
+  const res = await axios
+    .put(urlUpdate, data)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};
+
 export default user;
