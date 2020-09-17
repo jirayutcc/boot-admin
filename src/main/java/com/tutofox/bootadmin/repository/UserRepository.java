@@ -8,7 +8,7 @@ import com.tutofox.bootadmin.models.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
-	List<User> findByName(String name);
-	List<User> findByNameLike(String name);
+	List<User> findByUsername(String name);
+	List<User> findByUsernameLike(String name);
 	
 }
