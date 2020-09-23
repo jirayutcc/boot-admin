@@ -73,4 +73,17 @@ user.update = async (state) => {
   return res;
 };
 
+user.delete = async (id) => {
+  const urlDelete = baseUrl + "/delete/" + id;
+  const res = await axios
+    .delete(urlDelete)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+  return res;
+};
+
 export default user;
