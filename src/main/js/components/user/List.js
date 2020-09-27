@@ -37,7 +37,7 @@ export default class List extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.listUser.map((data) => {
+            {this.state.listUser.map((data, i) => {
               return (
                 <tr>
                   <th scope="row">{data.id}</th>
@@ -51,8 +51,13 @@ export default class List extends Component {
                     >
                       Edit
                     </Link>
-                    <a href="#" class="btn btn-danger">
-                      Delete
+                    <a
+                      onClick={() => this.onDelete(i, data.id)}
+                      href="#"
+                      class="btn btn-danger"
+                    >
+                      {" "}
+                      Delete{" "}
                     </a>
                   </td>
                 </tr>
@@ -62,5 +67,22 @@ export default class List extends Component {
         </table>
       </section>
     );
+  }
+
+  async onDelete(i, id) {
+    var yes = confirm("are you sure to delete this item?");
+    if (yes === true) {
+      const res = await userServices.delete(id);
+
+      if (res.success) {
+        alert(res.message);
+        const list = this.state.listUser;
+        list.splice(i, 1);
+        this.setState({ listUser: list });
+      } else {
+        console.log(res);
+        alert(JSON.stringify(res));
+      }
+    }
   }
 }
