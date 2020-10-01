@@ -51,6 +51,7 @@ export default class List extends Component {
                     >
                       Edit
                     </Link>
+                    &ensp;
                     <a
                       onClick={() => this.onDelete(i, data.id)}
                       href="#"
