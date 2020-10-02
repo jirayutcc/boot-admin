@@ -28,12 +28,10 @@ user.create = async (state) => {
   const res = await axios
     .post(urlPost, data)
     .then((response) => {
-      const data = { success: true, message: response.data };
-      return data;
+      return response.data;
     })
     .catch((error) => {
-      const data = { success: false, message: error.response.data };
-      return data;
+      return error.response;
     });
 
   return res;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import userServices from "../services/User"
+import userServices from "../services/User";
 
 export default class Form extends Component {
   constructor() {
@@ -9,6 +9,7 @@ export default class Form extends Component {
       username: "",
       password: "",
       email: "",
+      errorField: [],
     };
   }
 
@@ -58,7 +59,9 @@ export default class Form extends Component {
             />
           </div>
         </div>
-
+        {this.state.errorField.map((itemerror) => {
+          return <p class="text-danger">*{itemerror}</p>;
+        })}
         <div class="row">
           <div class="col-md-6 mb-3">
             <button
@@ -75,12 +78,30 @@ export default class Form extends Component {
   }
 
   async onSave() {
-    const res = await userServices.create(this.state)
+    const res = await userServices.create(this.state);
     if (res.success) {
-      alert(res.message)
-      window.location.replace("/user")
+      alert(res.message);
+      window.location.replace("/user");
+    } else if (res.status == 400) {
+      console.log(res.status);
+      const dataError = [];
+      const error = res.data.errors;
+
+      if (error) {
+        error.map((itemerror) => {
+          console.log(itemerror.defaultMessage);
+          dataError.push(itemerror.defaultMessage);
+        });
+        this.setState({ errorField: dataError });
+      } else {
+        dataError.push(res.data.message);
+        this.setState({ errorField: dataError });
+      }
     } else {
-      alert("error : " + res.message.message)
+      // alert("error : " + res.message.message)
+      const dataError = [];
+      dataError.push(res.message);
+      this.setState({ errorField: dataError });
     }
   }
 }
