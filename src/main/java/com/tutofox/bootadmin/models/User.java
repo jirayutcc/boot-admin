@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -15,12 +21,16 @@ public class User {
 	@Column(name = "id")
 	private Integer id;
 	
+	@NotEmpty(message = "The username field is required")
 	@Column(name = "username")
 	private String username;
 	
+	@NotEmpty(message = "The password field is required")
 	@Column(name = "password")
 	private String password;
 	
+	@NotEmpty(message = "The email field is required")
+	@Email(message = "The value '${validatedValue}' must be a valid email address")
 	@Column(name = "email")
 	private String email;
 	
