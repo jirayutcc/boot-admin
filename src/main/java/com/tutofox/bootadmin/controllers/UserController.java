@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,18 +53,36 @@ public class UserController {
 			return response;
 		}
 	}
-	
+
 	@PostMapping(value="/create")
-	public ResponseEntity<String> create(@RequestBody User data){
-		
+	public Map<String, Object> create(@Valid @RequestBody User data){
+
+		HashMap<String, Object> response = new HashMap<String, Object>();
+
 		try {
-			userRepository.save(data);
-			return new ResponseEntity<>("save [User] successful " , HttpStatus.OK);
+			Optional<User> validEmail = userRepository.findByEmail(data.getEmail());
+			Optional<User> validUsername = userRepository.findByUsername(data.getUsername());
+			
+			if (validUsername.isPresent()) {
+				response.put("message", "The username " + data.getUsername() + " is already registered ");
+				response.put("success", false);
+				return response;
+			} else if (validEmail.isPresent()) {
+				response.put("message", "The email " + data.getEmail() + " is already registered ");
+				response.put("success", false);
+				return response;
+			} else { 
+				userRepository.save(data);
+				response.put("message", "Successful save");
+				response.put("success", true);
+				return response;
+			}
+		} catch (Exception e) {
+			response.put("message", e.getMessage());
+			response.put("success", false);
+			return response;
 		}
-		catch (Exception e) {
-			return new ResponseEntity<>("error : " + e , HttpStatus.INTERNAL_SERVER_ERROR);
-		}
- 	}
+	}
 	
 	@GetMapping(value = "get/{id}" )
 	public Map<String, Object> data(@PathVariable("id") Integer id){
@@ -110,7 +130,6 @@ public class UserController {
 			response.put("success", false);
 			return response;
 		}
-		
 	}
 
 	@DeleteMapping(value="/delete/{id}")
@@ -128,6 +147,5 @@ public class UserController {
 			response.put("success", false);
 			return response;
 		}
-		
 	}
 }
