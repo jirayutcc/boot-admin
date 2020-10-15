@@ -35823,17 +35823,9 @@ user.create = /*#__PURE__*/function () {
             urlPost = baseUrl + "/create";
             _context2.next = 4;
             return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(urlPost, data).then(function (response) {
-              var data = {
-                success: true,
-                message: response.data
-              };
-              return data;
+              return response.data;
             })["catch"](function (error) {
-              var data = {
-                success: false,
-                message: error.response.data
-              };
-              return data;
+              return error.response;
             });
 
           case 4:
@@ -35919,6 +35911,38 @@ user.update = /*#__PURE__*/function () {
 
   return function (_x3) {
     return _ref4.apply(this, arguments);
+  };
+}();
+
+user["delete"] = /*#__PURE__*/function () {
+  var _ref5 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(id) {
+    var urlDelete, res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            urlDelete = baseUrl + "/delete/" + id;
+            _context5.next = 3;
+            return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](urlDelete).then(function (response) {
+              return response.data;
+            })["catch"](function (error) {
+              return error;
+            });
+
+          case 3:
+            res = _context5.sent;
+            return _context5.abrupt("return", res);
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x4) {
+    return _ref5.apply(this, arguments);
   };
 }();
 
@@ -36197,7 +36221,8 @@ var Form = /*#__PURE__*/function (_Component) {
     _this.state = {
       username: "",
       password: "",
-      email: ""
+      email: "",
+      errorField: []
     };
     return _this;
   }
@@ -36255,7 +36280,11 @@ var Form = /*#__PURE__*/function (_Component) {
             email: event.target.value
           });
         }
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+      }))), this.state.errorField.map(function (itemerror) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("p", {
+          "class": "text-danger"
+        }, "*", itemerror);
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         "class": "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         "class": "col-md-6 mb-3"
@@ -36271,7 +36300,8 @@ var Form = /*#__PURE__*/function (_Component) {
     key: "onSave",
     value: function () {
       var _onSave = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res;
+        var res, dataError, error, _dataError;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -36285,8 +36315,34 @@ var Form = /*#__PURE__*/function (_Component) {
                 if (res.success) {
                   alert(res.message);
                   window.location.replace("/user");
+                } else if (res.status == 400) {
+                  console.log(res.status);
+                  dataError = [];
+                  error = res.data.errors;
+
+                  if (error) {
+                    error.map(function (itemerror) {
+                      console.log(itemerror.defaultMessage);
+                      dataError.push(itemerror.defaultMessage);
+                    });
+                    this.setState({
+                      errorField: dataError
+                    });
+                  } else {
+                    dataError.push(res.data.message);
+                    this.setState({
+                      errorField: dataError
+                    });
+                  }
                 } else {
-                  alert("error : " + res.message.message);
+                  // alert("error : " + res.message.message)
+                  _dataError = [];
+
+                  _dataError.push(res.message);
+
+                  this.setState({
+                    errorField: _dataError
+                  });
                 }
 
               case 4:
@@ -36415,6 +36471,8 @@ var List = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("section", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("table", {
         "class": "table"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("thead", {
@@ -36429,18 +36487,69 @@ var List = /*#__PURE__*/function (_Component) {
         scope: "col"
       }, "Email"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", {
         scope: "col"
-      }, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tbody", null, this.state.listUser.map(function (data) {
+      }, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tbody", null, this.state.listUser.map(function (data, i) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("th", {
           scope: "row"
         }, data.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, data.username), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, data.password), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, data.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__["Link"], {
           "class": "btn btn-outline-info",
           to: "/user/edit/" + data.id
-        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("a", {
+        }, "Edit"), "\u2002", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("a", {
+          onClick: function onClick() {
+            return _this2.onDelete(i, data.id);
+          },
           href: "#",
           "class": "btn btn-danger"
-        }, "Delete")));
+        }, " ", "Delete", " ")));
       }))));
     }
+  }, {
+    key: "onDelete",
+    value: function () {
+      var _onDelete = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(i, id) {
+        var yes, res, list;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                yes = confirm("are you sure to delete this item?");
+
+                if (!(yes === true)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _context2.next = 4;
+                return _services_User__WEBPACK_IMPORTED_MODULE_8__["default"]["delete"](id);
+
+              case 4:
+                res = _context2.sent;
+
+                if (res.success) {
+                  alert(res.message);
+                  list = this.state.listUser;
+                  list.splice(i, 1);
+                  this.setState({
+                    listUser: list
+                  });
+                } else {
+                  console.log(res);
+                  alert(JSON.stringify(res));
+                }
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function onDelete(_x, _x2) {
+        return _onDelete.apply(this, arguments);
+      }
+
+      return onDelete;
+    }()
   }]);
 
   return List;
@@ -36600,12 +36709,7 @@ var Nav = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
         "class": "nav-link",
         to: "/form"
-      }, "Create")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("li", {
-        "class": "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
-        "class": "nav-link",
-        to: "/edit/5"
-      }, "Edit")))));
+      }, "Create")))));
     }
   }]);
 
