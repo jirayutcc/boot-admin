@@ -22,6 +22,7 @@ export default class List extends Component {
       alert("Error: " + res.message);
     }
   }
+  
 
   render() {
     return (
