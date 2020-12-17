@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="/base-layout/beas_layout">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>User Update</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">User Update</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/user/list">User</a></li>
+              <li class="breadcrumb-item active">Update</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-user-edit">&nbsp;</i>
+                  <h5 style="font-weight: bold" th:text="${user.name}"></h5>
+                </h3>
+              </div>
+              <form th:action="@{/user/update/{id}(id=${user.id})}" th:object="${user}" method="post"
+                class="form-horizontal" role="form">
+                <div class="card-body">
+                  <div class="form-group">
+                    <b>Name</b>
+                    <input
+                      type="text"
+                      th:field="*{name}"
+                      placeholder="Name"
+                      class="form-control"
+                    />
+                    <label
+                      style="color:red"
+                      th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}"
+                      class="validation-message"
+                    ></label>
+                  </div>
+                    <div class="form-group">
+                      <b>Last Name</b>
+                      <input
+                        type="text"
+                        th:field="*{lastName}"
+                        placeholder="Last Name"
+                        class="form-control"
+                      />
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('lastName')}"
+                        th:errors="*{lastName}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                    <div class="form-group">
+                      <b>Email</b>
+                      <input
+                        type="text"
+                        th:field="*{email}"
+                        placeholder="Email"
+                        class="form-control"
+                      />
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('email')}"
+                        th:errors="*{email}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                    <div class="form-group">
+                      <b>User Name</b>
+                      <input
+                        type="text"
+                        th:field="*{userName}"
+                        placeholder="User Name"
+                        class="form-control"
+                      />
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('userName')}"
+                        th:errors="*{userName}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                    <div class="form-group">
+                      <b>Role</b>
+                      <select class="form-control" th:field="*{roles}"  id="dropOperator">
+                        <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.role}" th:selected="${sRole.role}"></option>
+                      </select>
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('roles')}"
+                        th:errors="*{roles}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                    <div class="form-group">
+                      <b style="color:red">*</b><b>New Password</b>
+                      <input
+                        type="password"
+                        th:field="*{password}"
+                        placeholder="New Password"
+                        class="form-control"
+                      />
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('password')}"
+                        th:errors="*{password}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                  </div>
+
+                  <h2>
+                    <span
+                      class="text-success"
+                      th:utext="${successMessage}"
+                    ></span>
+                  </h2>
+
+                  <div class="card-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-sm"
+                      style="float: right"
+                    >
+                      <i class="fas fa-save"></i>
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
