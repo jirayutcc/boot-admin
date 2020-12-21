@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -35,10 +36,32 @@ public class UserService {
         return userRepository.findByUserName(userName);
     }
 
+    public Role findRoleById(int role) {
+        return roleRepository.findById(role);
+    }
+    
+
+    public int getRoleId(Set<Role> role) {
+        int i = 0;
+        for (Role ro : role) {
+            i = ro.getId();
+        }
+        return i;
+    }
+
+    public String getRoleName(Set<Role> role) {
+        String n = "";
+        for (Role ro : role) {
+            n = ro.getRole();
+        }
+        return n;
+    }
+
     public User saveUser(User user) {
+        int roleId = this.getRoleId(user.getRoles());
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = this.findRoleById(roleId);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
