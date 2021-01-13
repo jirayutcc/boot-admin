@@ -5,13 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tutofox.bootadmin.models.User;
+import com.tutofox.bootadmin.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
-	// List<User> findByUsername(String name);
-	List<User> findByUsernameLike(String name);
-
-	Optional<User> findByEmail(String email);
-	Optional<User> findByUsername(String name);
+	User findByEmail(String email);
+	User findByUserName(String userName);
 }
