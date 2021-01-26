@@ -1,6 +1,12 @@
 package com.tutofox.bootadmin.controllers;
 
+import java.util.Optional;
+import java.util.Set;
+import java.util.Arrays;
+import java.util.HashSet;
+
 import com.tutofox.bootadmin.model.User;
+import com.tutofox.bootadmin.model.Role;
 import com.tutofox.bootadmin.controllers.UserController;
 import com.tutofox.bootadmin.service.UserService;
 import com.tutofox.bootadmin.repository.UserRepository;
@@ -13,9 +19,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+
+import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
@@ -31,6 +40,8 @@ public class HomeController {
 
 	@Autowired
 	private UserController userController;
+	
+	@Autowired
 	private UserService userService;
 
 	@GetMapping(value={"/", "/login"})
@@ -51,6 +62,45 @@ public class HomeController {
 		modelAndView.setViewName("dashboard");
 		return modelAndView;
 	}
+
+	@GetMapping(value={"/profile"})
+	public ModelAndView profile(Model model){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userLogin", userController.getUserLogin());
+		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
+		User user = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+
+		Optional<User> optinalEntity  = userRepository.findById(user.getId());
+	 	User userModel = optinalEntity.get();
+
+		model.addAttribute("user", userModel);
+
+		modelAndView.setViewName("profile");
+		return modelAndView;
+	}
+
+	@PostMapping("/profile/update/{id}")
+    public ModelAndView updateProfile(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userLogin", userController.getUserLogin());
+		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
+		User getUserName = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userName", getUserName.getName() + " " + getUserName.getLastName());
+
+		User role = userService.findUserByUserName(userController.getUserLogin());
+
+        if (result.hasErrors()) {
+            user.setId(id);
+            modelAndView.setViewName("profile");
+	   		return modelAndView;
+        }
+		user.setRoles(role.getRoles());
+        userService.saveUser(user);
+		modelAndView.setViewName("profile");
+        
+		return modelAndView;
+    }
 
 	@GetMapping(value="/admin/home")
 	public ModelAndView home(){
