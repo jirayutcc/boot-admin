@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="/base-layout/beas_layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" th:href="@{/images/tabLogo.png}">
+    <title>Profile</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Profile</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item active">Profile</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle" th:src="@{/images/smLogo.jpg}"
+                                        alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center" th:utext="${userName}"></h3>
+                                <p class="text-muted text-center" th:utext="${userLoginRole}"></p>
+
+                                <form th:action="@{/profile/update/{id}(id=${user.id})}" th:object="${user}" method="post"
+                                    class="form-horizontal" role="form">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <b>Name</b>
+                                            <input type="text" th:field="*{name}" placeholder="Name"
+                                                class="form-control" />
+                                            <label style="color:red" th:if="${#fields.hasErrors('name')}"
+                                                th:errors="*{name}" class="validation-message"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <b>Last Name</b>
+                                            <input type="text" th:field="*{lastName}" placeholder="Last Name"
+                                                class="form-control" />
+                                            <label style="color:red" th:if="${#fields.hasErrors('lastName')}"
+                                                th:errors="*{lastName}" class="validation-message"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <b>Email</b>
+                                            <input type="text" th:field="*{email}" placeholder="Email"
+                                                class="form-control" />
+                                            <label style="color:red" th:if="${#fields.hasErrors('email')}"
+                                                th:errors="*{email}" class="validation-message"></label>
+                                        </div>
+                                        <div class="form-group">
+                                            <b>User Name</b>
+                                            <input type="text" th:field="*{userName}" placeholder="User Name"
+                                                class="form-control" />
+                                            <label style="color:red" th:if="${#fields.hasErrors('userName')}"
+                                                th:errors="*{userName}" class="validation-message"></label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <b style="color:red">*</b><b>New Password</b>
+                                            <input type="password" th:field="*{password}" placeholder="New Password"
+                                                class="form-control" />
+                                            <label style="color:red" th:if="${#fields.hasErrors('password')}"
+                                                th:errors="*{password}" class="validation-message"></label>
+                                        </div>
+                                    </div>
+
+                                    <h2>
+                                        <span class="text-success" th:utext="${successMessage}"></span>
+                                    </h2>
+
+                                    <button type="submit" class="btn btn-primary btn-sm" style="float: right">
+                                        <i class="fas fa-save"></i>
+                                        Update
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
