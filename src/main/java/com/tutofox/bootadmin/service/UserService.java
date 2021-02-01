@@ -5,6 +5,9 @@ import com.tutofox.bootadmin.model.User;
 import com.tutofox.bootadmin.repository.RoleRepository;
 import com.tutofox.bootadmin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +67,14 @@ public class UserService {
         Role userRole = this.findRoleById(roleId);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
+    }
+
+    public Page<User> listAll(int pageNum) {
+        int pageSize = 10;
+        
+        Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
+        
+        return userRepository.findAll(pageable);
     }
 
 }
