@@ -71,24 +71,32 @@
                       </tr>
                     </tbody>
                   </table>
+                  <div style="float: right">
+                    Total Users: [[${totalUsers}]]
+                  </div>
                 </div>
               </div>
               <div class="card-footer clearfix">
                 <ul class="pagination pagination-sm m-0 float-right">
                   <li class="page-item">
-                    <a class="page-link" href="#">&laquo;</a>
+                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/user/page/1'}">&Lang;</a>
+                    <a class="page-link" th:unless="${currentPage > 1}">&Lang;</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">1</a>
+                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/user/page/' + ${currentPage - 1}}">&lang;</a>
+                    <a class="page-link" th:unless="${currentPage > 1}">&lang;</a>
+                  </li>
+                  <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <a class="page-link" th:if="${i != currentPage}" th:href="@{'/user/page/' + ${i}}">[[${i}]]</a>
+                    <a class="page-link" th:unless="${i != currentPage}">[[${i}]]</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">2</a>
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/page/' + ${currentPage + 1}}">&rang;</a>
+                    <a class="page-link" th:unless="${currentPage < totalPages}">&rang;</a>
                   </li>
                   <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">&raquo;</a>
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/user/page/' + ${totalPages}}">&Rang;</a>
+                    <a class="page-link" th:unless="${currentPage < totalPages}">&Rang;</a>
                   </li>
                 </ul>
               </div>
