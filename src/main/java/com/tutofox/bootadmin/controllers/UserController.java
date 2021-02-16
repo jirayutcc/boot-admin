@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.expression.spel.ast.Operator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,15 +67,30 @@ public class UserController {
         return userRole;
     }
 
-    @GetMapping("list")
-    public ModelAndView userList(Model model) {
-        ModelAndView modelAndView = new ModelAndView();
+	@GetMapping("/page/{pageNum}")
+	public ModelAndView viewPage(Model model,
+			@PathVariable(name = "pageNum") int pageNum) {
+		
+		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("userLogin", getUserLogin());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
+
+		Page<User> page = userService.listAll(pageNum);
+		List<User> listUsers = page.getContent();
 		
-        model.addAttribute("users", userRepository.findAll());
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("totalPages", page.getTotalPages());
+    	model.addAttribute("totalUsers", page.getTotalElements());
+        model.addAttribute("users", listUsers);
+
         modelAndView.setViewName("user/user");
+		
 		return modelAndView;
+	}
+
+    @GetMapping("list")
+    public ModelAndView userList(Model model) {
+		return viewPage(model, 1);
     }
 
     @GetMapping(value="create")
