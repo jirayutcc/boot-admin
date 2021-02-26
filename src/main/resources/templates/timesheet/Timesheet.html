@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="/base-layout/beas_layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" th:href="@{/images/tabLogo.png}">
+    <title>Timesheet</title>
+</head>
+
+<body>
+
+    <div layout:fragment="content">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Timesheet</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item active">Timesheet</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="btn btn-primary btn-sm" href="/timesheet/create">
+                                    <i class="fas fa-stream"></i>
+                                    Create New TimeSheet
+                                </a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div th:switch="${timeSheets}">
+                                  <table class="table table-bordered">
+                                    <thead>
+                                      <tr>
+                                        <th>Date</th>
+                                        <th>Detail</th>
+                                        <th>Team</th>
+                                        <th style="width: 100px">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr th:each="timeSheet,iter : ${timesheets}">
+                                        <td th:text="${#dates.format(timeSheet.date, 'dd-MMM-yyyy hh:mm:ss')}"></td>
+                                        <td th:text="${timeSheet.detail}"></td>
+                                        <td th:text="${timeSheet.team}"></td>
+                                        <td style="text-align: center">
+                                          <!-- <a class="btn btn-info btn-sm" th:href="@{/user/edit/{id}(id=${user.id})}">
+                                            <i class="fas fa-user-edit"> </i>
+                                          </a> -->
+                                          <!-- <a class="btn btn-danger btn-sm" th:href="@{/user/delete/{id}(id=${user.id})}" onclick="return confirm('Are you sure to delete user?')">
+                                            <i class="fas fa-user-times"> </i>
+                                          </a> -->
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                  <div style="float: right">
+                                    Total TimsSheets: [[${totalTimeSheets}]]
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-footer clearfix">
+                                <ul class="pagination pagination-sm m-0 float-right">
+                                  <li class="page-item">
+                                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/timesheet/page/1'}">&Lang;</a>
+                                    <a class="page-link" th:unless="${currentPage > 1}">&Lang;</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/timesheet/page/' + ${currentPage - 1}}">&lang;</a>
+                                    <a class="page-link" th:unless="${currentPage > 1}">&lang;</a>
+                                  </li>
+                                  <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                    <a class="page-link" th:if="${i != currentPage}" th:href="@{'/timesheet/page/' + ${i}}">[[${i}]]</a>
+                                    <a class="page-link" th:unless="${i != currentPage}">[[${i}]]</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/timesheet/page/' + ${currentPage + 1}}">&rang;</a>
+                                    <a class="page-link" th:unless="${currentPage < totalPages}">&rang;</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/timesheet/page/' + ${totalPages}}">&Rang;</a>
+                                    <a class="page-link" th:unless="${currentPage < totalPages}">&Rang;</a>
+                                  </li>
+                                </ul>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+    </div>
+
+</body>
+
+</html>
