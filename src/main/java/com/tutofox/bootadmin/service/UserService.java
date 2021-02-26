@@ -4,6 +4,7 @@ import com.tutofox.bootadmin.model.Role;
 import com.tutofox.bootadmin.model.User;
 import com.tutofox.bootadmin.repository.RoleRepository;
 import com.tutofox.bootadmin.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,7 +44,6 @@ public class UserService {
         return roleRepository.findById(role);
     }
     
-
     public int getRoleId(Set<Role> role) {
         int i = 0;
         for (Role ro : role) {
