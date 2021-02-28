@@ -34,7 +34,7 @@
                             <div class="card-header">
                                 <a class="btn btn-primary btn-sm" href="/timesheet/create">
                                     <i class="fas fa-stream"></i>
-                                    Create New TimeSheet
+                                    Create New Timesheet
                                 </a>
                             </div>
                             <!-- /.card-header -->
@@ -55,12 +55,9 @@
                                         <td th:text="${timeSheet.detail}"></td>
                                         <td th:text="${timeSheet.team}"></td>
                                         <td style="text-align: center">
-                                          <!-- <a class="btn btn-info btn-sm" th:href="@{/user/edit/{id}(id=${user.id})}">
-                                            <i class="fas fa-user-edit"> </i>
-                                          </a> -->
-                                          <!-- <a class="btn btn-danger btn-sm" th:href="@{/user/delete/{id}(id=${user.id})}" onclick="return confirm('Are you sure to delete user?')">
+                                          <a class="btn btn-danger btn-sm" th:href="@{/timesheet/delete/{id}(id=${timeSheet.id})}" onclick="return confirm('Are you sure to delete timesheet?')">
                                             <i class="fas fa-user-times"> </i>
-                                          </a> -->
+                                          </a>
                                         </td>
                                       </tr>
                                     </tbody>

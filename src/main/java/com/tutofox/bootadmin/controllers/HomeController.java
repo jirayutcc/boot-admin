@@ -150,4 +150,16 @@ public class HomeController {
 		return viewTimesheetPage(model, 1);
     }
 
+	@GetMapping("/timesheet/delete/{id}")
+    public ModelAndView deleteTimesheet(@PathVariable("id") Integer id, Model model) {
+	 	ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userLogin", userController.getUserLogin());
+		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
+		
+	 	Optional<TimeSheet> optinalEntity  = timeSheetRepository.findById(id);
+	 	TimeSheet timesheet = optinalEntity.get();
+        timeSheetRepository.delete(timesheet);
+
+		return viewTimesheetPage(model, 1);
+    }
 }
