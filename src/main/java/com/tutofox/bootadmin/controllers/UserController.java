@@ -127,11 +127,11 @@ public class UserController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			model.addAttribute("users", userRepository.findAll());
-			modelAndView.setViewName("user/user");
+			// model.addAttribute("users", userRepository.findAll());
+			// modelAndView.setViewName("user/user");
 
 		}
-		return modelAndView;
+		return viewPage(model, 1);
 	}
 
 	@GetMapping("edit/{id}")
@@ -176,10 +176,10 @@ public class UserController {
         }
 
         userService.saveUser(user);
-        model.addAttribute("users", userRepository.findAll());
-		modelAndView.setViewName("user/user");
+        // model.addAttribute("users", userRepository.findAll());
+		// modelAndView.setViewName("user/user");
         
-		return modelAndView;
+		return viewPage(model, 1);
     }
 
 	@GetMapping("delete/{id}")
@@ -191,9 +191,7 @@ public class UserController {
 	 	Optional<User> optinalEntity  = userRepository.findById(id);
 	 	User user = optinalEntity.get();
         userRepository.delete(user);
-        model.addAttribute("users", userRepository.findAll());
-        modelAndView.setViewName("user/user");
 
-		return modelAndView;
+		return viewPage(model, 1);
     }
 }
