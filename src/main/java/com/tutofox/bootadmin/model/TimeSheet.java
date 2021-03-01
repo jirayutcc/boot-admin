@@ -22,8 +22,8 @@ public class TimeSheet {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "date")
-	private Date date;
+	@Column(name = "timesheetDate")
+	private Date timesheetDate;
 
 	@Column(name = "detail")
 	private String detail;
