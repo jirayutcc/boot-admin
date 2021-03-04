@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.List;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 
 import com.tutofox.bootadmin.model.User;
@@ -149,6 +150,34 @@ public class HomeController {
     public ModelAndView timeSheetList(Model model) {
 		return viewTimesheetPage(model, 1);
     }
+
+	@GetMapping(value="/timesheet/create")
+	public ModelAndView registration(Model model){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userLogin", userController.getUserLogin());
+		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
+		
+		TimeSheet timesheet = new TimeSheet();
+		modelAndView.addObject("timesheet", timesheet);
+		modelAndView.setViewName("timesheet/timesheetCreate");
+		
+		return modelAndView;
+	}
+
+	@PostMapping(value = "/timesheet/create")
+	public ModelAndView createNewTimesheet(@Valid TimeSheet timesheet, BindingResult bindingResult, Model model) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("userLogin", userController.getUserLogin());
+		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
+		
+		Date currentDate = new Date();
+        timesheet.setTimesheetDate(currentDate);
+		timeSheetService.saveTimesheet(timesheet);
+		modelAndView.addObject("successMessage", "TimeSheet has been save successfully");
+		modelAndView.addObject("timesheet", new TimeSheet());
+
+		return viewTimesheetPage(model, 1);
+	}
 
 	@GetMapping("/timesheet/delete/{id}")
     public ModelAndView deleteTimesheet(@PathVariable("id") Integer id, Model model) {
