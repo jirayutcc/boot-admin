@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="/base-layout/beas_layout">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" th:href="@{/images/tabLogo.png}">
+  <title>Timesheet Create</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Timesheet Create</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/timesheet">Timesheet</a></li>
+              <li class="breadcrumb-item active">Create</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <a class="btn btn-primary btn-sm" href="/timesheet">
+                    <i class="fas fa-chevron-left"></i>
+                    Back
+                  </a>
+                </h3>
+              </div>
+              <form autocomplete="off" action="#" th:action="@{/timesheet/create}" th:object="${timesheet}" method="post"
+                class="form-horizontal" role="form">
+                <div class="card-body">
+                    <div class="form-group">
+                      <b>Detail</b>
+                      <textarea
+                        class="form-control"
+                        th:field="*{detail}"
+                        rows="4"
+                        cols="50"
+                        name="detail">
+                        Detail...
+                      </textarea>
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('detail')}"
+                        th:errors="*{detail}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                    <div class="form-group">
+                      <b>Team</b>
+                      <input
+                        type="text"
+                        th:field="*{team}"
+                        placeholder="Team"
+                        class="form-control"
+                      />
+                      <label
+                        style="color:red"
+                        th:if="${#fields.hasErrors('team')}"
+                        th:errors="*{team}"
+                        class="validation-message"
+                      ></label>
+                    </div>
+                  </div>
+
+                  <h2>
+                    <span
+                      class="text-success"
+                      th:utext="${successMessage}"
+                    ></span>
+                  </h2>
+
+                  <div class="card-footer">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-sm"
+                      style="float: right"
+                    >
+                      <i class="fas fa-save"></i>
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

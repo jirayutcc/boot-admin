@@ -51,7 +51,7 @@
                                     </thead>
                                     <tbody>
                                       <tr th:each="timeSheet,iter : ${timesheets}">
-                                        <td th:text="${#dates.format(timeSheet.date, 'dd-MMM-yyyy hh:mm:ss')}"></td>
+                                        <td th:text="${#dates.format(timeSheet.timesheetDate, 'dd MMM yyyy hh.mm.ss')}"></td>
                                         <td th:text="${timeSheet.detail}"></td>
                                         <td th:text="${timeSheet.team}"></td>
                                         <td style="text-align: center">
