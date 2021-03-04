@@ -3,6 +3,7 @@ package com.tutofox.bootadmin.service;
 import java.util.Set;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Date;
 
 import com.tutofox.bootadmin.model.TimeSheet;
 import com.tutofox.bootadmin.repository.TimeSheetRepository;
@@ -33,6 +34,10 @@ public class TimeSheetService {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         
         return timeSheetRepository.findAll(pageable);
+    }
+
+    public TimeSheet saveTimesheet(TimeSheet timesheet) {
+        return timeSheetRepository.save(timesheet);
     }
 
 }
