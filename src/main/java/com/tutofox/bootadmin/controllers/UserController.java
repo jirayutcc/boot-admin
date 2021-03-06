@@ -127,11 +127,11 @@ public class UserController {
 			userService.saveUser(user);
 			modelAndView.addObject("successMessage", "User has been registered successfully");
 			modelAndView.addObject("user", new User());
-			// model.addAttribute("users", userRepository.findAll());
-			// modelAndView.setViewName("user/user");
 
+			return viewPage(model, 1);
 		}
-		return viewPage(model, 1);
+		
+		return modelAndView;
 	}
 
 	@GetMapping("edit/{id}")
@@ -174,10 +174,7 @@ public class UserController {
        
 	   		return modelAndView;
         }
-
         userService.saveUser(user);
-        // model.addAttribute("users", userRepository.findAll());
-		// modelAndView.setViewName("user/user");
         
 		return viewPage(model, 1);
     }
