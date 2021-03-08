@@ -16,6 +16,7 @@ import com.tutofox.bootadmin.service.TimeSheetService;
 import com.tutofox.bootadmin.repository.UserRepository;
 import com.tutofox.bootadmin.repository.RoleRepository;
 import com.tutofox.bootadmin.repository.TimeSheetRepository;
+import com.tutofox.bootadmin.repository.ProjectRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -38,12 +39,14 @@ public class HomeController {
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
 	private final TimeSheetRepository timeSheetRepository;
+	private final ProjectRepository projectRepository;
 
     @Autowired
-    public HomeController(UserRepository userRepository, RoleRepository roleRepository, TimeSheetRepository timeSheetRepository) {
+    public HomeController(UserRepository userRepository, RoleRepository roleRepository, TimeSheetRepository timeSheetRepository, ProjectRepository projectRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
 		this.timeSheetRepository = timeSheetRepository;
+		this.projectRepository = projectRepository;
     }
 
 	@Autowired
@@ -68,6 +71,7 @@ public class HomeController {
 		modelAndView.addObject("userLogin", userController.getUserLogin());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 
+		modelAndView.addObject("projects", projectRepository.findAll());
 		modelAndView.addObject("timeSheets", timeSheetRepository.findAll());
 		modelAndView.addObject("users", userRepository.findAll());
 
@@ -113,17 +117,6 @@ public class HomeController {
         
 		return modelAndView;
     }
-
-	// @GetMapping(value="/admin/home")
-	// public ModelAndView home(){
-	// 	ModelAndView modelAndView = new ModelAndView();
-	// 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	// 	User user = userService.findUserByUserName(auth.getName());
-	// 	modelAndView.addObject("userName", "Welcome " + user.getUserName() + "/" + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-	// 	modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-	// 	modelAndView.setViewName("admin/home");
-	// 	return modelAndView;
-	// }
 
 	@GetMapping("/timesheet/page/{pageNum}")
 	public ModelAndView viewTimesheetPage(Model model,
