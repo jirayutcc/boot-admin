@@ -72,7 +72,8 @@ public class UserController {
 			@PathVariable(name = "pageNum") int pageNum) {
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User user = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", user.getName() + " " + user.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 
 		Page<User> page = userService.listAll(pageNum);
@@ -96,7 +97,8 @@ public class UserController {
     @GetMapping(value="create")
 	public ModelAndView registration(Model model){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User userLogin = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 		
 		User user = new User();
@@ -110,7 +112,8 @@ public class UserController {
     @PostMapping(value = "create")
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User userLogin = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 		
 		User userExists = userService.findUserByUserName(user.getUserName());
@@ -137,7 +140,8 @@ public class UserController {
 	@GetMapping("edit/{id}")
     public ModelAndView editUser(@PathVariable("id") Integer id, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User userLogin = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 
         Optional<User> optinalEntity  = userRepository.findById(id);
@@ -158,7 +162,8 @@ public class UserController {
     @PostMapping("update/{id}")
     public ModelAndView updateUser(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User userLogin = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 
         if (result.hasErrors()) {
@@ -182,7 +187,8 @@ public class UserController {
 	@GetMapping("delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") Integer id, Model model) {
 	 	ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", getUserLogin());
+		User userLogin = userService.findUserByUserName(getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", getUserLoginRole());
 		
 	 	Optional<User> optinalEntity  = userRepository.findById(id);
