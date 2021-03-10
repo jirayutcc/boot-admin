@@ -68,7 +68,8 @@ public class HomeController {
 	@GetMapping(value={"/dashboard"})
 	public ModelAndView dashboard(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 
 		modelAndView.addObject("projects", projectRepository.findAll());
@@ -82,12 +83,12 @@ public class HomeController {
 	@GetMapping(value={"/profile"})
 	public ModelAndView profile(Model model){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
-		User user = userService.findUserByUserName(userController.getUserLogin());
-		modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+		modelAndView.addObject("userName", userLogin.getName() + " " + userLogin.getLastName());
 
-		Optional<User> optinalEntity  = userRepository.findById(user.getId());
+		Optional<User> optinalEntity  = userRepository.findById(userLogin.getId());
 	 	User userModel = optinalEntity.get();
 
 		model.addAttribute("user", userModel);
@@ -99,7 +100,8 @@ public class HomeController {
 	@PostMapping("/profile/update/{id}")
     public ModelAndView updateProfile(@PathVariable("id") Integer id, @Valid User user, BindingResult result, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 		User getUserName = userService.findUserByUserName(userController.getUserLogin());
 		modelAndView.addObject("userName", getUserName.getName() + " " + getUserName.getLastName());
@@ -123,7 +125,8 @@ public class HomeController {
 			@PathVariable(name = "pageNum") int pageNum) {
 		
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 
 		Page<TimeSheet> page = timeSheetService.listAll(pageNum);
@@ -147,7 +150,8 @@ public class HomeController {
 	@GetMapping(value="/timesheet/create")
 	public ModelAndView registration(Model model){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 		
 		TimeSheet timesheet = new TimeSheet();
@@ -160,7 +164,8 @@ public class HomeController {
 	@PostMapping(value = "/timesheet/create")
 	public ModelAndView createNewTimesheet(@Valid TimeSheet timesheet, BindingResult bindingResult, Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 		
 		Date currentDate = new Date();
@@ -175,7 +180,8 @@ public class HomeController {
 	@GetMapping("/timesheet/delete/{id}")
     public ModelAndView deleteTimesheet(@PathVariable("id") Integer id, Model model) {
 	 	ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("userLogin", userController.getUserLogin());
+		User userLogin = userService.findUserByUserName(userController.getUserLogin());
+		modelAndView.addObject("userLogin", userLogin.getName() + " " + userLogin.getLastName());
 		modelAndView.addObject("userLoginRole", userController.getUserLoginRole());
 		
 	 	Optional<TimeSheet> optinalEntity  = timeSheetRepository.findById(id);
