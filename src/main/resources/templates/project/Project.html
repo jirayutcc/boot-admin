@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="/base-layout/beas_layout">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" th:href="@{/images/tabLogo.png}">
+    <title>Project</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Project</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item active">Project</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <a class="btn btn-primary btn-sm" href="/project/create">
+                                        <i class="fas fa-project-diagram"></i>
+                                        Create New Project
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="card-body p-0">
+                                <div th:switch="${projects}">
+                                    <table class="table table-striped projects">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px">
+                                                    No.
+                                                </th>
+                                                <th>
+                                                    Project Name
+                                                </th>
+                                                <th>
+                                                    Project Description
+                                                </th>
+                                                <th>
+                                                    Project Leader
+                                                </th>
+                                                <th>
+                                                    Project Progress
+                                                </th>
+                                                <th style="width: 8%" class="text-center">
+                                                    Status
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="project,iter : ${projects}">
+                                                <td th:text="${iter.index}+1"></td>
+                                                <td th:text="${project.projectName}"></td>
+                                                <td th:text="${project.projectDescription}"></td>
+                                                <td th:text="${project.projectLeader}"></td>
+                                                <td class="project_progress">
+                                                    <div class="progress progress-sm">
+                                                        <div class="progress-bar bg-green" role="progressbar"
+                                                            th:attr="aria-valuenow=${project.projectProcess}"
+                                                            aria-volumemin="0" aria-volumemax="100"
+                                                            th:style="'width:'+ ${project.projectProcess}+'%;'">
+                                                        </div>
+                                                    </div>
+                                                    <small th:text="${project.projectProcess} + '% Complete'">
+                                                    </small>
+                                                </td>
+                                                <div th:switch="${project.status}">
+                                                    <td th:case="'On Hold'" class="text-center">
+                                                        <span class="badge badge-warning">On Hold</span>
+                                                    </td>
+                                                    <td th:case="'Canceled'" class="text-center">
+                                                        <span class="badge badge-danger">Canceled</span>
+                                                    </td>
+                                                    <td th:case="'Success'" class="text-center">
+                                                        <span class="badge badge-success">Success</span>
+                                                    </td>
+                                                    <td th:case="*" th:text="${project.status}" class="text-center">
+                                                    </td>
+                                                </div>
+
+                                                <td class="project-actions text-right">
+                                                    <a class="btn btn-info btn-sm"
+                                                        th:href="@{/project/edit/{id}(id=${project.id})}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm"
+                                                        th:href="@{/project/delete/{id}(id=${project.id})}"
+                                                        onclick="return confirm('Are you sure to delete project?')">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer clearfix">
+                                <ul class="pagination pagination-sm m-0 float-right">
+                                    <li class="page-item">
+                                        <a class="page-link" th:if="${currentPage > 1}"
+                                            th:href="@{'/project/page/1'}">&Lang;</a>
+                                        <a class="page-link" th:unless="${currentPage > 1}">&Lang;</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" th:if="${currentPage > 1}"
+                                            th:href="@{'/project/page/' + ${currentPage - 1}}">&lang;</a>
+                                        <a class="page-link" th:unless="${currentPage > 1}">&lang;</a>
+                                    </li>
+                                    <li class="page-item" th:each="i: ${#numbers.sequence(1, totalPages)}">
+                                        <a class="page-link" th:if="${i != currentPage}"
+                                            th:href="@{'/project/page/' + ${i}}">[[${i}]]</a>
+                                        <a class="page-link" th:unless="${i != currentPage}">[[${i}]]</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" th:if="${currentPage < totalPages}"
+                                            th:href="@{'/project/page/' + ${currentPage + 1}}">&rang;</a>
+                                        <a class="page-link" th:unless="${currentPage < totalPages}">&rang;</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" th:if="${currentPage < totalPages}"
+                                            th:href="@{'/project/page/' + ${totalPages}}">&Rang;</a>
+                                        <a class="page-link" th:unless="${currentPage < totalPages}">&Rang;</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
