@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="/base-layout/beas_layout">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" th:href="@{/images/tabLogo.png}">
+  <title>Project Create</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Project Create</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/project/list">Project</a></li>
+              <li class="breadcrumb-item active">Create</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <a class="btn btn-primary btn-sm" href="/project/list">
+                    <i class="fas fa-chevron-left"></i>
+                    Back
+                  </a>
+                </h3>
+              </div>
+              <form autocomplete="off" action="#" th:action="@{/project/create}" th:object="${project}" method="post"
+                class="form-horizontal" role="form">
+                <div class="card-body">
+                  <div class="form-group">
+                    <b>Project Name</b>
+                    <input type="text" th:field="*{projectName}" placeholder="Project Name" class="form-control" />
+                    <label style="color:red" th:if="${#fields.hasErrors('projectName')}" th:errors="*{projectName}"
+                      class="validation-message"></label>
+                  </div>
+                  <div class="form-group">
+                    <b>Project Description</b>
+                    <textarea class="form-control" th:field="*{projectDescription}" rows="4" cols="50"
+                      name="projectDescription">
+                        Project Description...
+                      </textarea>
+                    <label style="color:red" th:if="${#fields.hasErrors('projectDescription')}"
+                      th:errors="*{projectDescription}" class="validation-message"></label>
+                  </div>
+                  <div class="form-group">
+                    <b>Project Leader</b>
+                    <input type="text" th:field="*{projectLeader}" placeholder="Project Leader" class="form-control" />
+                    <label style="color:red" th:if="${#fields.hasErrors('projectLeader')}" th:errors="*{projectLeader}"
+                      class="validation-message"></label>
+                  </div>
+                  <div class="form-group">
+                    <b>Project Process</b>
+                    <input type="number" th:field="*{projectProcess}" placeholder="Project Process"
+                      class="form-control" />
+                    <label style="color:red" th:if="${#fields.hasErrors('projectProcess')}"
+                      th:errors="*{projectProcess}" class="validation-message"></label>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputStatus">Status</label>
+                    <!-- <select class="form-control custom-select" th:field="*{status}">
+                        <option selected disabled>Select one</option>
+                        <option>On Hold</option>
+                        <option>Canceled</option>
+                        <option>Success</option>
+                      </select> -->
+                    <select th:field="*{status}" class="form-control custom-select">
+                      <option th:value="'On Hold'">On Hold</option>
+                      <option th:value="'Canceled'">Canceled</option>
+                      <option th:value="'Success'">Success</option>
+                    </select>
+                    <label style="color:red" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"
+                      class="validation-message"></label>
+                  </div>
+                </div>
+
+                <h2>
+                  <span class="text-success" th:utext="${successMessage}"></span>
+                </h2>
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-sm" style="float: right">
+                    <i class="fas fa-save"></i>
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>
